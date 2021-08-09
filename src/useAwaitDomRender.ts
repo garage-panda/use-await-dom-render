@@ -11,6 +11,11 @@ export default (waitTimeMs = 150): UseAwaitDomRenderResult => {
     setUpdatesCount((prevCount: number) => prevCount + 1);
   }, []);
 
+  const setLoaded = React.useCallback(() => {
+    observer.call("load");
+    observer.disconnect();
+  }, []);
+
   const observer = React.useMemo(
     () =>
       new DomObserver(() => {
@@ -24,14 +29,21 @@ export default (waitTimeMs = 150): UseAwaitDomRenderResult => {
     if (updatesCount === 0) return;
 
     const timeout = setTimeout(() => {
-      observer.call("load");
-      observer.disconnect();
+      setLoaded();
     }, waitTimeMs);
 
     return () => {
       clearTimeout(timeout);
     };
   }, [updatesCount]);
+
+  React.useEffect(() => {
+    setTimeout(() => {
+      if (updatesCount === 0) {
+        setLoaded();
+      }
+    }, waitTimeMs);
+  }, []);
 
   const startWait = React.useCallback(
     (targetNode: Node): void => {
