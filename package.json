@@ -1,6 +1,6 @@
 {
   "name": "@garage-panda/use-await-dom-render",
-  "version": "0.0.3",
+  "version": "0.0.6",
   "description": "React hook that is used to await all DOM elements inside a node to be rendered",
   "main": "lib/index.js",
   "files": [
