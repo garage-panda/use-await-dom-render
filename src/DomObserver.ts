@@ -1,5 +1,5 @@
-type DomObserverCallback = (...args: any[]) => void;
-type DomObserverEvent = "load" | "dom-update" | "start";
+export type DomObserverCallback = (...args: any[]) => void;
+export type DomObserverEvent = "load" | "dom-update" | "start";
 
 class DomObserver {
   private observer: MutationObserver;
@@ -25,7 +25,7 @@ class DomObserver {
     }
   };
 
-  public startDomWait = (targetNode) => {
+  public startDomWait = (targetNode: Node) => {
     const config = { attributes: true, childList: true, subtree: true };
 
     this.observer.observe(targetNode, config);

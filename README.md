@@ -27,7 +27,7 @@ import { useAwaitDomRender } from "@garage-panda/use-await-dom-render";
 function App() {
   const [observer, startWait] = useAwaitDomRender();
 
-  React.useLayoutEffect(() => {
+  React.useEffect(() => {
     const targetNode = document.querySelector("#container-component");
 
     observer.on("start", () => {
@@ -35,11 +35,16 @@ function App() {
     });
 
     observer.on("dom-update", () => {
+      // Can be called multiple times
       console.log("Each DOM update comes here");
     });
 
     observer.on("load", () => {
       console.log("All DOM elements rendered");
+    });
+
+    observer.on("load", () => {
+      console.log("Multiple listeners can be attached, will be called in order.");
     });
 
     /**
@@ -57,7 +62,7 @@ function App() {
     );
   }, []);
 
-  return <div id="container-component"></div>;
+  return <div id="container-component" />;
 }
 ```
 
@@ -66,6 +71,23 @@ To change the default wait time after which the DOM is considered loaded use:
 ```typescript
 const [observer, startWait] = useAwaitDomRender(1000);
 ```
+
+## Documentation
+
+- `hook useAwaitDomRender(waitTime: number)`
+
+  - Returns - Array<`DomObserver`, `StartWaitFunc`>: (example: `[observer, startWait]`);
+  - Parameters:
+    - `waitTime: number` - how much time needs to pass with no new DOM updates, after which the `load` event is emitted
+
+- `class DomObserver`
+
+  - methods
+    - `on(event: DomObserverEvent, callback: () => void)` - registers an event listener for each dom observer event. Possible events are: `start` , `dom-update` and `load`.
+    - `removeListeners()` - removes all active previously attached listeners
+
+- `type StartWaitFunc` (second argument of return array of hook)
+  - `(targetNode: Node) => void` - starts waiting for DOM updates within the provided targetNode.
 
 ## Contributing
 
