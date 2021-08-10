@@ -26,8 +26,6 @@ export default (waitTimeMs = 150): UseAwaitDomRenderResult => {
   );
 
   React.useEffect(() => {
-    if (updatesCount === 0) return;
-
     const timeout = setTimeout(() => {
       setLoaded();
     }, waitTimeMs);
@@ -36,14 +34,6 @@ export default (waitTimeMs = 150): UseAwaitDomRenderResult => {
       clearTimeout(timeout);
     };
   }, [updatesCount]);
-
-  React.useEffect(() => {
-    setTimeout(() => {
-      if (updatesCount === 0) {
-        setLoaded();
-      }
-    }, waitTimeMs);
-  }, []);
 
   const startWait = React.useCallback(
     (targetNode: Node): void => {
