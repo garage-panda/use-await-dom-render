@@ -1,3 +1,5 @@
+[![npm version](https://badge.fury.io/js/%40garage-panda%2Fuse-await-dom-render.svg)](https://badge.fury.io/js/%40garage-panda%2Fuse-await-dom-render)
+
 # use-await-dom-render
 
 ## Important
@@ -80,7 +82,7 @@ const [observer, startWait] = useAwaitDomRender(1000);
   - Parameters:
     - `waitTime: number` - how much time needs to pass with no new DOM updates, after which the `load` event is emitted
 
-- `class DomObserver`
+- `class DomObserver` (first argument of return array of hook)
 
   - methods
     - `on(event: DomObserverEvent, callback: () => void)` - registers an event listener for each dom observer event. Possible events are: `start` , `dom-update` and `load`.
