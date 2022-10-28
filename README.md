@@ -2,10 +2,6 @@
 
 # use-await-dom-render
 
-## Important
-
-The package is under development and this is the Alpha version of it. Stay still, we are doing our best to finish it soon.
-
 ## About
 
 A React hook that waits for all elements in an HTML node to be rendered and visible in the Node. It works by adding a MutationObserver to the target node and listens for DOM updates. It has an internal timer which is reset after every update. The DOM is deemed loaded after there have not been updates for 150ms. If that does not suit your purpose, pass the wait time in the hook declaration as argument to override that value.
